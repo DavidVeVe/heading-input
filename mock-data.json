@@ -1,0 +1,16 @@
+[
+  {
+    "id": "Heading 1",
+    "title": "Heading 1",
+    "shortcut": "type # + space",
+    "icon": "T",
+    "tag": "H1"
+  },
+  {
+    "id": "Expandable Heading 1",
+    "title": "Expandable Heading 1",
+    "shortcut": "type >># + space",
+    "icon": "T",
+    "tag": "H1"
+  }
+]
