@@ -12,5 +12,19 @@
     "shortcut": "type >># + space",
     "icon": "T",
     "tag": "H1"
+  },
+  {
+    "id": "Expandable kq 1",
+    "title": "Expandable kq 1",
+    "shortcut": "type >># + space",
+    "icon": "T",
+    "tag": "H1"
+  },
+  {
+    "id": "Expandable kq 2",
+    "title": "Expandable kq 2",
+    "shortcut": "type >># + space",
+    "icon": "T",
+    "tag": "H1"
   }
 ]
