@@ -47,14 +47,22 @@ function filterDropdownData(data) {
 const setSelectedElement = (filteredData) => {
   if (filteredData.length > 0) filteredData[0].isSelected = true;
 };
+
 const setDropDownContent = (filteredData) =>
   (dropdownContent.innerHTML = createDropdownElements(filteredData).join(""));
+
+const createSelectedTag = (tagName) => {
+  const selectedTag = document.createElement(tagName);
+  console.log(selectedTag)
+};
+
 const setSelectedItemEvent = () => {
   selectedItem = document.querySelector('div[is-selected="true"]');
 
   selectedItem &&
     selectedItem.addEventListener("click", () => {
-      console.log(selectedItem.getAttribute("tag"));
+      const selectedTagName = selectedItem.getAttribute("tag");
+      createSelectedTag(selectedTagName)
     });
 };
 
