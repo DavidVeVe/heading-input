@@ -11,20 +11,20 @@
     "title": "Expandable Heading 1",
     "shortcutText": "type >># + space",
     "icon": "T",
-    "tag": "H1"
+    "tag": "H2"
   },
   {
     "id": "one kq 1",
     "title": "one kq 1",
     "shortcutText": "type >># + space",
     "icon": "T",
-    "tag": "H1"
+    "tag": "H3"
   },
   {
     "id": "two kq 2",
     "title": "two kq 2",
     "shortcutText": "type >># + space",
     "icon": "T",
-    "tag": "H1"
+    "tag": "H4"
   }
 ]
