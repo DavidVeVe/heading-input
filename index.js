@@ -37,3 +37,8 @@ headingInput.addEventListener("keyup", async () => {
   const filteredData = filterDropdownData(dropdownData);
   dropdownContent.innerHTML = createDropdownElements(filteredData).join("");
 });
+
+
+window.addEventListener('keyup', (event) => {
+    event.code === "Escape" && dropdown.classList.add("display-none");
+})
