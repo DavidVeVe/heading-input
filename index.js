@@ -17,10 +17,10 @@ async function fetchDropdownData() {
 }
 
 function createDropdownElements(data) {
-  return data.map(({ title, shortcut }) => {
+  return data.map(({ title, shortcutText }) => {
     return `<div>
                     <h6>${title}</h6>
-                    <p>Shortcut: ${shortcut}</p>
+                    <p>Shortcut: ${shortcutText}</p>
                 </div>`;
   });
 }

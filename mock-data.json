@@ -2,28 +2,28 @@
   {
     "id": "Heading 1",
     "title": "Heading 1",
-    "shortcut": "type # + space",
+    "shortcutText": "type # + space",
     "icon": "T",
     "tag": "H1"
   },
   {
     "id": "Expandable Heading 1",
     "title": "Expandable Heading 1",
-    "shortcut": "type >># + space",
+    "shortcutText": "type >># + space",
     "icon": "T",
     "tag": "H1"
   },
   {
     "id": "one kq 1",
     "title": "one kq 1",
-    "shortcut": "type >># + space",
+    "shortcutText": "type >># + space",
     "icon": "T",
     "tag": "H1"
   },
   {
     "id": "two kq 2",
     "title": "two kq 2",
-    "shortcut": "type >># + space",
+    "shortcutText": "type >># + space",
     "icon": "T",
     "tag": "H1"
   }
