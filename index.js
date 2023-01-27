@@ -4,8 +4,15 @@ const dropdownContent = document.querySelector(
   ".heading-input__dropdown__content"
 );
 const documentBody = document.querySelector("body");
-
 let selectedItem;
+
+window.addEventListener("keyup", (event) => {
+  event.code === "Escape" && dropdown.classList.add("display-none");
+});
+
+documentBody.addEventListener("click", () => {
+  dropdown.classList.add("display-none");
+});
 
 function toggleHeadingInputDropdown(keycode) {
   headingInput.value.match(/\/[A-Za-z0-9]+/) && keycode !== "Escape"
@@ -20,10 +27,11 @@ async function fetchDropdownData() {
 }
 
 function createDropdownElements(data) {
-  return data.map(({ title, shortcutText, isSelected }) => {
-    return `<div class="heading-input__dropdown__content__item" is-selected="${
-      isSelected || false
-    }">
+  return data.map(({ title, shortcutText, isSelected, tag }) => {
+    return `<div
+                    class="heading-input__dropdown__content__item"
+                     is-selected="${isSelected || false}"
+                    tag="${tag}">
                     <h6>${title}</h6>
                     <p>Shortcut: ${shortcutText}</p>
                 </div>`;
@@ -36,27 +44,27 @@ function filterDropdownData(data) {
   });
 }
 
+const setSelectedElement = (filteredData) => {
+  if (filteredData.length > 0) filteredData[0].isSelected = true;
+};
+const setDropDownContent = (filteredData) =>
+  (dropdownContent.innerHTML = createDropdownElements(filteredData).join(""));
+const setSelectedItemEvent = () => {
+  selectedItem = document.querySelector('div[is-selected="true"]');
+
+  selectedItem &&
+    selectedItem.addEventListener("click", () => {
+      console.log(selectedItem.getAttribute("tag"));
+    });
+};
+
 headingInput.addEventListener("keyup", async (e) => {
   const dropdownData = await fetchDropdownData();
   const filteredData = [...filterDropdownData(dropdownData)];
 
   toggleHeadingInputDropdown(e.code);
+  setSelectedElement(filteredData);
+  setDropDownContent(filteredData);
 
-  if (filteredData.length > 0) filteredData[0].isSelected = true;
-
-  dropdownContent.innerHTML = createDropdownElements(filteredData).join("");
-
-  selectedItem = document.querySelector('div[is-selected="true"]');
-  selectedItem &&
-    selectedItem.addEventListener("click", () => {
-      console.log("clicked");
-    });
-});
-
-window.addEventListener("keyup", (event) => {
-  event.code === "Escape" && dropdown.classList.add("display-none");
-});
-
-documentBody.addEventListener("click", () => {
-  dropdown.classList.add("display-none");
+  setSelectedItemEvent();
 });
