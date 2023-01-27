@@ -1,0 +1,31 @@
+body {
+    width: 100vw;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heading-input-wrapper {
+    position: relative;
+}
+
+#heading-input {
+    width: 250px;
+    border: 0;
+    outline: 0;
+}
+
+.heading-input__dropdown {
+    border: 1px solid gray;
+    border-radius: 5px;
+    position: absolute;
+}
+
+.display-none {
+    display: none;
+}
+
+.display-initial {
+    display: initial;
+}
