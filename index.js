@@ -4,8 +4,10 @@ const dropdownContent = document.querySelector(
   ".heading-input__dropdown__content"
 );
 
+let selectedItem;
+
 function toggleHeadingInputDropdown() {
-    headingInput.value.charAt(0) === "/"
+  headingInput.value.charAt(0) === "/"
     ? dropdown.classList.remove("display-none")
     : dropdown.classList.add("display-none");
 }
@@ -17,8 +19,8 @@ async function fetchDropdownData() {
 }
 
 function createDropdownElements(data) {
-  return data.map(({ title, shortcutText }) => {
-    return `<div>
+  return data.map(({ title, shortcutText, isSelected }) => {
+    return `<div class="heading-input__dropdown__content__item" is-selected="${isSelected || false}">
                     <h6>${title}</h6>
                     <p>Shortcut: ${shortcutText}</p>
                 </div>`;
@@ -32,13 +34,16 @@ function filterDropdownData(data) {
 }
 
 headingInput.addEventListener("keyup", async () => {
-  toggleHeadingInputDropdown();
   const dropdownData = await fetchDropdownData();
-  const filteredData = filterDropdownData(dropdownData);
+  const filteredData = [...filterDropdownData(dropdownData)];
+
+  toggleHeadingInputDropdown();
+
+  filteredData[0].isSelected = true;
+
   dropdownContent.innerHTML = createDropdownElements(filteredData).join("");
 });
 
-
-window.addEventListener('keyup', (event) => {
-    event.code === "Escape" && dropdown.classList.add("display-none");
-})
+window.addEventListener("keyup", (event) => {
+  event.code === "Escape" && dropdown.classList.add("display-none");
+});
