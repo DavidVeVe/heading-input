@@ -18,9 +18,14 @@ async function fetchDropdownData() {
   return data;
 }
 
+
+const test = () => {
+    console.log('hello')
+}
+
 function createDropdownElements(data) {
   return data.map(({ title, shortcutText, isSelected }) => {
-    return `<div class="heading-input__dropdown__content__item" is-selected="${isSelected || false}">
+    return `<div onclick="test()" class="heading-input__dropdown__content__item" is-selected="${isSelected || false}">
                     <h6>${title}</h6>
                     <p>Shortcut: ${shortcutText}</p>
                 </div>`;
