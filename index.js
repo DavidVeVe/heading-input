@@ -1,6 +1,8 @@
 const headingInput = document.querySelector("#heading-input");
 const dropdown = document.querySelector(".heading-input__dropdown");
-const dropdownContent = document.querySelector('.heading-input__dropdown__content')
+const dropdownContent = document.querySelector(
+  ".heading-input__dropdown__content"
+);
 let dropdownData = [];
 
 const toggleHeadingInputDropdown = () => {
@@ -16,12 +18,13 @@ const fetchDropdownData = async () => {
 };
 
 const createDropdownElements = (data) => {
-    return data.map(({title, shortcut}) => {
-        return `<div><h6>${title}</h6><p>Shortcut: ${shortcut}</p></div>`
-    
-
-    });
-}
+  return data.map(({ title, shortcut }) => {
+    return `<div>
+                    <h6>${title}</h6>
+                    <p>Shortcut: ${shortcut}</p>
+                </div>`;
+  });
+};
 
 headingInput.addEventListener("keyup", async () => {
   toggleHeadingInputDropdown();
@@ -29,6 +32,5 @@ headingInput.addEventListener("keyup", async () => {
     dropdownData = await fetchDropdownData();
   }
 
-  dropdownContent.innerHTML = createDropdownElements(dropdownData).join('')
-
+  dropdownContent.innerHTML = createDropdownElements(dropdownData).join("");
 });
