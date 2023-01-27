@@ -39,7 +39,8 @@ headingInput.addEventListener("keyup", async () => {
 
   toggleHeadingInputDropdown();
 
-  filteredData[0].isSelected = true;
+  if(filteredData.length > 0) filteredData[0].isSelected = true;
+
 
   dropdownContent.innerHTML = createDropdownElements(filteredData).join("");
 });
