@@ -4,6 +4,7 @@ const dropdownContent = document.querySelector(
   ".heading-input__dropdown__content"
 );
 const documentBody = document.querySelector("body");
+let dropdownData = [];
 let selectedItem;
 
 window.addEventListener("keyup", (event) => {
@@ -12,12 +13,23 @@ window.addEventListener("keyup", (event) => {
 
 documentBody.addEventListener("click", () => {
   dropdown.classList.add("display-none");
+  dropdownData = [];
 });
 
-function toggleHeadingInputDropdown(keycode) {
-  headingInput.value.match(/\/[A-Za-z0-9]+/) && keycode !== "Escape"
-    ? dropdown.classList.remove("display-none")
-    : dropdown.classList.add("display-none");
+window.addEventListener("keyup", (event) => {
+  //console.log(selectedItem);
+  event.code === "Enter" && createSelectedTag("h6");
+});
+
+async function toggleHeadingInputDropdown(keycode) {
+  if (headingInput.value.match(/\/[A-Za-z0-9]+/) && keycode !== "Escape") {
+    console.log('entered')
+    dropdownData = await fetchDropdownData();
+    dropdown.classList.remove("display-none");
+  } else {
+    dropdown.classList.add("display-none");
+    dropdownData = [];
+  }
 }
 
 async function fetchDropdownData() {
@@ -53,7 +65,7 @@ const setDropDownContent = (filteredData) =>
 
 const createSelectedTag = (tagName) => {
   const selectedTag = document.createElement(tagName);
-  console.log(selectedTag)
+  console.log(selectedTag);
 };
 
 const setSelectedItemEvent = () => {
@@ -62,15 +74,14 @@ const setSelectedItemEvent = () => {
   selectedItem &&
     selectedItem.addEventListener("click", () => {
       const selectedTagName = selectedItem.getAttribute("tag");
-      createSelectedTag(selectedTagName)
+      createSelectedTag(selectedTagName);
     });
 };
 
 headingInput.addEventListener("keyup", async (e) => {
-  const dropdownData = await fetchDropdownData();
+  await toggleHeadingInputDropdown(e.code);
   const filteredData = [...filterDropdownData(dropdownData)];
 
-  toggleHeadingInputDropdown(e.code);
   setSelectedElement(filteredData);
   setDropDownContent(filteredData);
 
