@@ -6,6 +6,7 @@ const dropdownContent = document.querySelector(
 const documentBody = document.querySelector("body");
 let dropdownData = [];
 let selectedItem;
+let selectedTagName;
 
 window.addEventListener("keyup", (event) => {
   event.code === "Escape" && dropdown.classList.add("display-none");
@@ -16,20 +17,11 @@ documentBody.addEventListener("click", () => {
   dropdownData = [];
 });
 
-window.addEventListener("keyup", (event) => {
-  //console.log(selectedItem);
-  event.code === "Enter" && createSelectedTag("h6");
-});
-
-async function toggleHeadingInputDropdown(keycode) {
-  if (headingInput.value.match(/\/[A-Za-z0-9]+/) && keycode !== "Escape") {
-    console.log('entered')
-    dropdownData = await fetchDropdownData();
-    dropdown.classList.remove("display-none");
-  } else {
-    dropdown.classList.add("display-none");
-    dropdownData = [];
-  }
+function toggleHeadingInputDropdown(keycode) {
+  headingInput.value.match(/\/[A-Za-z0-9]+/) && keycode !== "Escape"
+    ? dropdown.classList.remove("display-none")
+    : dropdown.classList.add("display-none");
+  dropdownData = [];
 }
 
 async function fetchDropdownData() {
@@ -64,26 +56,41 @@ const setDropDownContent = (filteredData) =>
   (dropdownContent.innerHTML = createDropdownElements(filteredData).join(""));
 
 const createSelectedTag = (tagName) => {
-  const selectedTag = document.createElement(tagName);
-  console.log(selectedTag);
+  if (tagName) {
+    const newTag = document.createElement(tagName);
+    const newTagContent = document.createTextNode("");
+
+    newTag.appendChild(newTagContent);
+    return newTag;
+  }
 };
 
 const setSelectedItemEvent = () => {
-  selectedItem = document.querySelector('div[is-selected="true"]');
-
-  selectedItem &&
-    selectedItem.addEventListener("click", () => {
-      const selectedTagName = selectedItem.getAttribute("tag");
-      createSelectedTag(selectedTagName);
-    });
+  return document.querySelector('div[is-selected="true"]');
 };
 
 headingInput.addEventListener("keyup", async (e) => {
-  await toggleHeadingInputDropdown(e.code);
+  const keycode = e.code;
+  toggleHeadingInputDropdown(keycode);
+  dropdownData = await fetchDropdownData();
   const filteredData = [...filterDropdownData(dropdownData)];
+
+  selectedItem = undefined;
 
   setSelectedElement(filteredData);
   setDropDownContent(filteredData);
 
-  setSelectedItemEvent();
+  if (headingInput.value.match(/\/[A-Za-z0-9]+/) && keycode !== "Escape") {
+    selectedItem = setSelectedItemEvent();
+    selectedTagName = selectedItem && selectedItem.getAttribute("tag");
+
+    selectedItem &&
+      selectedItem.addEventListener("click", () => {
+        const newTag = createSelectedTag(selectedTagName);
+      });
+  }
+});
+
+window.addEventListener("keyup", (event) => {
+    event.code === "Enter" &&  selectedTagName && createSelectedTag(selectedTagName);
 });
